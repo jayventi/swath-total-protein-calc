@@ -42,7 +42,11 @@ Only one step is required and that is to run the script once per calculation.
 https://www.r-project.org/
 2) Install RStudio Version 1.4.1 or later (optional, useful if code is to be modified)
 https://www.rstudio.com/products/rstudio/download/
-3) Install swath-total-protein-approach-calc project to desired location by Git clone of https://github.com/teresasierra/swath-total-protein-approach-calc.git
+3) Install swath-total-protein-approach-calc project by Git clone of https://github.com/teresasierra/swath-total-protein-approach-calc.git
+* Select Code
+* Download Zip
+* Extract Zip
+* Store project in desired location
 
 Done.
 
