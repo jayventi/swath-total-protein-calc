@@ -38,9 +38,9 @@ Only one step is required and that is to run the script once per calculation.
 
 ### Installing
 
-1) Install R 1.4 or later (from r.project.org select "download R" and choose preferred CRAN mirror site to get software)
+1) Install R 4.1 or later (from r.project.org select "download R" and choose preferred CRAN mirror site to get software)
 https://www.r-project.org/
-2) Install RStudio Version 1.4.1 or later (optional, useful if code is to be modified)
+2) Install RStudio Version 1.4.1 or later (recommended, also useful if code is to be modified)
 https://www.rstudio.com/products/rstudio/download/
 3) Install swath-total-protein-approach-calc project by Git clone of https://github.com/teresasierra/swath-total-protein-approach-calc.git
 * Select Code
@@ -53,18 +53,16 @@ Done.
 ### Executing Program
 
 1) Place one SWATH formatted .cvs file in the input_file directory found immediately under the main swath-total-protein-approach-calc project directory.
-* You may only process one file at a time, the calculations will abort if there's more than one file present. Any file name name is acceptable, it will be detected and used as a base name.
+* You may only process one file at a time, the calculations will abort if there's more than one .csv file present. Any file name name is acceptable, it will be detected and used as a base name.
 * Template_File.csv is an example of how the data frame is to be set up. "PG.MolecularWeight" and "[ ]" are critical names for the script to identify the first molecular weight and samples, in column one and column six respectively.
-2)  Run the sswath_total_protein_approach_calc.R script either in RStudio or at the command line, RStudio is recommended.
+2)  Run the swath_total_protein_approach_calc.R script either in RStudio or at the command line, RStudio is recommended.
 * Open RStudio
 * Open Project: swath-total-protein-calc.Rproj
 * Open File: swath_total_protein_approach_calc.R
-* If you are not changing the conversion factor (10^9), highlight rows 1 to 168 of the script
+* If you are not changing the conversion factor (10^9), highlight all rows
 * Select Run
-* To clean up project, highlight rows 179 to 185 of the script and select Run
-
 ```
-"C:\Program Files\R\R-4.1\bin\Rscript.exe" C:\Users\myusername\Documents\R\SWATHTotProteinCalc\swath_tot_protein_calc.R
+"C:\Program Files\R\R-4.1\bin\Rscript.exe" C:\Users\myusername\Documents\R\swath-total-protein-approach-calc\swath_total_protein_approach_calc.R
 ```
 * An example of command line syntax is given above, the specifics may vary based on R version and OS. 
 3)  Output files will be found in the output_files directory. They have the effects of TPA-calc_ followed by timestamp and the original input file name and a copy of the original input file will end up in the raw_input_history directory. The original file will be deleted on the successful completion of the calculations.
