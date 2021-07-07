@@ -34,11 +34,11 @@ Only one step is required and that is to run the script once per calculation.
 
 * R Version 1.4.1103 or later
 * Spectronaut (or equivalent software)
-* Software known to run in MacOS, Ubuntu 18, and Windows 10
+* Script known to run in MacOS, Ubuntu 18, and Windows 10
 
 ### Installing
 
-1) Install R 1.4 or later (select "download R" and choose preferred CRAN mirror site)
+1) Install R 1.4 or later (from r.project.org select "download R" and choose preferred CRAN mirror site to get software)
 https://www.r-project.org/
 2) Install RStudio Version 1.4.1 or later (optional, useful if code is to be modified)
 https://www.rstudio.com/products/rstudio/download/
@@ -55,9 +55,9 @@ Done.
 * Open RStudio
 * Open Project: swath-total-protein-calc.Rproj
 * Open File: swath_total_protein_approach_calc.R
-* If you are not changing the conversion factor (10^9), highlight rows 1 to of the script
+* If you are not changing the conversion factor (10^9), highlight rows 1 to 168 of the script
 * Select Run
-* To clean up highlight rows of the script and select Run
+* To clean up project, highlight rows 179 to 185 of the script and select Run
 
 ```
 "C:\Program Files\R\R-4.1\bin\Rscript.exe" C:\Users\myusername\Documents\R\SWATHTotProteinCalc\swath_tot_protein_calc.R
