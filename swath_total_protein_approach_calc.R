@@ -43,18 +43,18 @@ options(op)
 
 # set up all pathfile names
 # discover name of file and input directory
-input_files <- list.files(input_dir, pattern=NULL, 
+input_files <- list.files(input_dir, pattern='*.csv', 
                           all.files=FALSE, full.names=FALSE)
 # make sure there's only one file in the input directory otherwise 
 # abort execution
-if (length(input_files) > 1){
-  print("Only one file at a time")
+if (length(input_files) != 1){
+  print("Only one file at a time or no file present at all")
   stop_quietly}
 # we are good to go only one file!
 
 # setup input data_filepath
 data_filepath <- paste(input_dir,"/", input_files, sep="")
-
+print(data_filepath)
 # setup hist_file name with timestamp
 # locale-specific version of date()
 Sys.time()
