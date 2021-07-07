@@ -6,9 +6,9 @@ Automates the time-consuming process of calculating label free protein concentra
 
 ## Description
 
-This R script takes a SWATH-MS output .cvs file from Spectronaut (or equivalent software) and calculates the protein concentration (pmol/mg protein) using the Total Protein Approach. 
+This R script takes a SWATH-MS output .cvs file from Spectronaut (or equivalent software) and calculates the protein concentration (default pmol/mg protein) using the Total Protein Approach. 
 
-* Protein concentration (pmol/mg protein) = (Total Intensity/(Total Protein Intensity Sum * MW (g/mol)) * 10^9
+* Protein concentration (pmol/mg protein) = (Total Intensity/(Total Protein Intensity * MW (g/mol)) * 10^9
 * Note: 10^9 conversion factor can be changed
 
 The data frame is formatted with proteins designated by rows and samples by columns. The current code will work with any number of target rows and column samples.
