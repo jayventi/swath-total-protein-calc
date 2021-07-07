@@ -1,5 +1,5 @@
 
-##  SWATH Total Protein I ntensity Calculator
+##  SWATH Total Protein Approach Calculator
 
 
 
