@@ -85,7 +85,7 @@ https://www.rstudio.com/products/rstudio/download/
 3)  Output files will be found in the appropriate directories.
     * input_file
         * The original file will be deleted on the successful completion of the calculations.
-        * A copy of the original file will be found in "raw_input_history".
+        * A copy of the original file 
     * output_files
         * "TPA-calc_{timestamp}_{input file name}"
     * raw_input_history
