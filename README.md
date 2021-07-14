@@ -11,7 +11,7 @@ Protein concentration (pmol/mg protein) = (Total Intensity/(Total Protein Intens
 
 Note: 
 * Literature protein concentration calculated to mol/g protein [(Wiśniewski, 2017)](https://doi.org/10.1016/bs.mie.2016.10.002)
-* R script default calculated to pmol/g protein
+* R script default calculated to pmol/mg protein
 * 10^9 conversion factor can be changed in R script
 
 ### Input File
