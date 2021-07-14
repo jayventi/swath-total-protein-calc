@@ -18,7 +18,7 @@ Note:
 
 The data frame of the .csv input file is formatted with proteins designated by rows and samples by columns. The current code will work with any number of target rows and column samples.
 
-![](../../../../Desktop/step01.jpg)
+![input_file_example](input_file_example.jpg)
 
 The current configuration expects column A to be labeled exactly "PG.MolecularWeight". The cells in column A can have any number of MWs that are separated by ";". The code is written to take the first MW value in each cell and separate it into its own column, "PG.first_Weight".
 
@@ -32,8 +32,7 @@ The code proceeds to calculate sums of protein intensity for each sample column,
 
 The final result is a separate output .csv file with the title of "TPA-calc_{timestamp}_{input file name}".
 
-
-![](../../../../Desktop/step2.jpg)
+![output_file_example](output_file_example.jpg)
 
 Column A contains the original input data from "PG.MolecularWeight". The first molecular weight, "PG.first_Weight", is inserted into column B. The original references are shifted to column C to F.
 
