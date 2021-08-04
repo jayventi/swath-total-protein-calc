@@ -11,6 +11,8 @@ library(datasets)  # Load base packages manually
 
 # Installs pacman ("package manager") if needed
 if (!require("pacman")) install.packages("pacman")
+# Installs stringi ("Character String Processing Facilities") if needed
+if (!require("stringi")) install.packages("stringi")
 
 # Use pacman to load add-on packages as desired
 pacman::p_load(pacman, rio) 
