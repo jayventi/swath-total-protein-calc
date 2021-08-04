@@ -1,7 +1,12 @@
 
 ##  SWATH-MS Total Protein Approach Calculator
 
-Automates the time-consuming process of calculating label-free and standard-free protein concentration using the Total Protein Approach [(Wiśniewski, 2017)](https://doi.org/10.1016/bs.mie.2016.10.002) from SWATH-MS data.
+# THIS IS A DEVELOPMENT BRANCH NOT FOR GENERAL RELEASE 
+### This branch is part of active code development probably contains bugs and or is broken
+### Use main branch
+
+
+Automates the time-consuming process of calculating label-free and standard-free protein concentration using the Total Protein Approach [(Wiśniewski, 2017)](https://doi.org/10.1016/bs.mie.2016.10.00s2) from SWATH-MS data.
 
 ## Description
 This R script takes a SWATH-MS .cvs file from Spectronaut (or equivalent software) and calculates the protein concentration using the Total Protein Approach.
