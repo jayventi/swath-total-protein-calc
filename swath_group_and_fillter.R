@@ -16,10 +16,14 @@ if (!require("pacman")) install.packages("pacman")
 if (!require("stringi")) install.packages("stringi")
 # Installs yaml ("Convert R Data to YAML and Back") if needed
 if (!require("yaml")) install.packages("yaml")
+# Installs misc. helpers
+if (!require("stringr")) install.packages("stringr")
 
 # Use pacman to load add-on packages as desired
 pacman::p_load(pacman, rio) 
 
+# import private source
+source("csv_walk_config_tree.R")
 
 # system configuration  ######################################
 
@@ -46,13 +50,11 @@ input_files <- list.files(input_dir, pattern='*.csv',
 is_csv_config_file = (csv_config_file %in% input_files)
 if(is_csv_config_file){
   input_files = input_files[!(input_files %in% csv_config_file)]} # tricky :)
-
 if (is_csv_config_file){
   # get csv system configuration  ######################################
   csv_config_filepath <- paste(input_dir,"/", csv_config_file, sep="")
   raw_csv_config = import(csv_config_filepath)
-  print(raw_csv_config)
-  print('TODO convert_raw_csv_config_2_config_dict(raw_csv_config)')                                                                                                                                      
+  config_dict =walk_csv_config_tree(raw_csv_config)                                                                                                                                    
 }else{
   # get yaml system configuration  #####################################
   yaml_config_filepath <- paste(input_dir,"/", yaml_config_file, sep="")
@@ -61,14 +63,14 @@ if (is_csv_config_file){
 print(paste('input_files', input_files)) 
 
 
-# set system from config files  ########################################
+# setup system from config_dict  ########################################
 sample_sets_cn <- length(config_dict$sample_sets)
 # print(config_dict)
 print(config_dict$sample_sets$blue_set)
 print(paste('config_dict$target_whitelist_row_num', config_dict$target_whitelist_row_num)) 
 print(config_dict$target_whitelist_row_num)
-row <- 2
-print(config_dict$target_whitelist_row_num)
+
+
 
 # setup input data frame #######################################
 # set up all pathfile names
@@ -108,7 +110,8 @@ for( row in 1:cal1_df_row_cn ) { # 4){ #
           not_na_data_cn = not_na_data_cn+1}# ! is.na(cal1_swath_df[row, col])
       }
   
-      if( (not_na_data_cn < config_dict$rules$min_replicates) | ! keep_row) { keep_row = FALSE
+      if( (not_na_data_cn < config_dict$rules$min_replicates) | ! keep_row) { 
+        keep_row = FALSE
       }
      # print(paste('not_na_data_cn',not_na_data_cn,'keep_row',keep_row))
     }
