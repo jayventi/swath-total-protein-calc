@@ -139,4 +139,4 @@ walk_csv_config_tree = function(raw_csv_config) {
   return(n)
 }
 
-config = walk_csv_config_tree(raw_csv_config)
+#config = walk_csv_config_tree(raw_csv_config)
