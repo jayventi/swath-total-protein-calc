@@ -64,13 +64,8 @@ print(paste('input_files', input_files))
 
 
 # setup system from config_dict  ########################################
-sample_sets_cn <- length(config_dict$sample_sets)
+group_set_columns_cn <- length(config_dict$group_set_columns)
 # print(config_dict)
-print(config_dict$sample_sets$blue_set)
-print(paste('config_dict$target_whitelist_row_num', config_dict$target_whitelist_row_num)) 
-print(config_dict$target_whitelist_row_num)
-
-
 
 # setup input data frame #######################################
 # set up all pathfile names
@@ -100,11 +95,11 @@ for( row in 1:cal1_df_row_cn ) { # 4){ #
   # print(paste('row:',row))
   if( (!(row %in% config_dict$target_whitelist_row_num))){
     keep_row = TRUE
-    for(set in 1:sample_sets_cn){
-      sample_sets_v = unlist(config_dict$sample_sets[set])
+    for(set in 1:group_set_columns_cn){
+      group_set_columns_v = unlist(config_dict$group_set_columns[set])
       not_na_data_cn = 0
-      # print(paste('sample_sets_v:',sample_sets_v))
-      for( col in sample_sets_v){
+      # print(paste('group_set_columns_v:',group_set_columns_v))
+      for( col in group_set_columns_v){
        if(! is.na(cal1_swath_df[row, col])){
           # print(paste('col:',col, 'row:',row, 'cal1_swath_df[row, ]', cal1_swath_df[row, ]))
           not_na_data_cn = not_na_data_cn+1}# ! is.na(cal1_swath_df[row, col])
@@ -128,21 +123,23 @@ for( row in 1:cal1_df_row_cn ) { # 4){ #
 # Build output cal1_output_df ###################################
 # initialize output cal1_output_df from fist 6 column of cal1_swath_df
 cal1_output_df <- cal1_swath_df[1:6]
-for(set in 1:sample_sets_cn){
-  set_name = names(config_dict$sample_sets)[set]
-  sample_sets_v = unlist(config_dict$sample_sets[set])
-  for( col in sample_sets_v){
+for(set in 1:group_set_columns_cn){
+  set_name = names(config_dict$group_set_columns)[set]
+  group_set_columns_v = unlist(config_dict$group_set_columns[set])
+  for( col in group_set_columns_v){
     new_col_name = paste(set_name, '.', col, sep = '')
     cal1_output_df[[new_col_name]] <- cal1_swath_df[, col]
   }
 }
 
 # # delete rows not meeting requirement given in rule ############
-print(paste('nrow(cal1_output_df)', nrow(cal1_output_df)))
+
+cat('\n## output summary ## #############################################\n')
+print(paste('size of the data set before filtration', nrow(cal1_output_df)))
 cal1_filtered_df = cal1_output_df[-row_exclusion_v, ]
 cal1_excluded_df = cal1_output_df[row_exclusion_v, ]
-print(paste('nrow(cal1_output_df)', nrow(cal1_output_df)))
-print(paste('nrow(cal1_excluded_df)', nrow(cal1_excluded_df)))
+print(paste('size of database after filtration', nrow(cal1_filtered_df)))
+print(paste('size of exclusion data set', nrow(cal1_excluded_df)))
 # ##### output cal1_output_df as csv file ########################
 
 # locale-specific version of date()
@@ -151,7 +148,7 @@ time_stamp <- format(Sys.time(), "%y-%m-%d-%H-%M")
 # setup output file name
 output_file_filtered = paste(output_dir, "/", output_file_prfx, input_files, sep="")
 output_file_excluded = paste(output_dir, "/", output_file_excluded_prfx, input_files, sep="")
-print(output_file_filtered)
+cat('target location of output file:',output_file_filtered, '\n\n')
 # export with RIO ################################################
 export(cal1_filtered_df, output_file_filtered,)
 export(cal1_excluded_df, output_file_excluded,)
