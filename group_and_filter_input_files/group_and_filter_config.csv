@@ -1,0 +1,17 @@
+# how to use,,,,,,,,,,,
+,,,,,,,,,,,
+group_set_columns:,,,,,,,,,,,
+,Set1:,[1] 331 SWATH.htrms.PG.Quantity.cal1,[2] 339 SWATH.htrms.PG.Quantity.cal1,[3] 378 SWATH.htrms.PG.Quantity.cal1,[4] 403 SWATH.htrms.PG.Quantity.cal1,[5] 412 SWATH.htrms.PG.Quantity.cal1,[6] 415 SWATH.htrms.PG.Quantity.cal1,[7] 422 SWATH_IR.htrms.PG.Quantity.cal1,[8] 423 SWATH.htrms.PG.Quantity.cal1,[9] 424 SWATH.htrms.PG.Quantity.cal1,[10] 425 SWATH.htrms.PG.Quantity.cal1
+,Set2:,[11] 434 SWATH.htrms.PG.Quantity.cal1,[12] 436 SWATH.htrms.PG.Quantity.cal1,[13] 437 SWATH.htrms.PG.Quantity.cal1,[14] 439 SWATH.htrms.PG.Quantity.cal1,[15] 447 SWATH.htrms.PG.Quantity.cal1,[16] 448 SWATH.htrms.PG.Quantity.cal1,[17] 450_SWATH.htrms.PG.Quantity.cal1,[18] 453_SWATH.htrms.PG.Quantity.cal1,[19] 461 SWATH.htrms.PG.Quantity.cal1,[20] 462 SWATH.htrms.PG.Quantity.cal1
+,Set3:,[21] 465_SWATH.htrms.PG.Quantity.cal1,[22] 466 SWATH.htrms.PG.Quantity.cal1,[23] 467 SWATH.htrms.PG.Quantity.cal1,[24] 469 SWATH.htrms.PG.Quantity.cal1,[25] 471 SWATH.htrms.PG.Quantity.cal1,[26] 473_SWATH.htrms.PG.Quantity.cal1,[27] 476 SWATH.htrms.PG.Quantity.cal1,[28] 478 SWATH.htrms.PG.Quantity.cal1,[29] 479 SWATH.htrms.PG.Quantity.cal1,[30] 481 SWATH.htrms.PG.Quantity.cal1
+,Set4:,[31] 484 SWATH.htrms.PG.Quantity.cal1,[32] 486 SWATH.htrms.PG.Quantity.cal1,[33] 490 SWATH.htrms.PG.Quantity.cal1,[34] 493_SWATH.htrms.PG.Quantity.cal1,[35] 494 SWATH.htrms.PG.Quantity.cal1,[36] 495_SWATH.htrms.PG.Quantity.cal1,[37] 498_SWATH.htrms.PG.Quantity.cal1,[38] 499_SWATH.htrms.PG.Quantity.cal1,[39] 502 SWATH.htrms.PG.Quantity.cal1,[40] 508 SWATH.htrms.PG.Quantity.cal1
+,Set5:,[41] 510_SWATH.htrms.PG.Quantity.cal1,[42] 511 SWATH.htrms.PG.Quantity.cal1,[43] 512 SWATH.htrms.PG.Quantity.cal1,[44] 521_SWATH.htrms.PG.Quantity.cal1,[45] 527 SWATH.htrms.PG.Quantity.cal1,[46] 531_SWATH.htrms.PG.Quantity.cal1,[47] 533_SWATH.htrms.PG.Quantity.cal1,[48] 536_SWATH.htrms.PG.Quantity.cal1,[49] 540 SWATH.htrms.PG.Quantity.cal1,[50] 542 SWATH.htrms.PG.Quantity.cal1
+,Set6:,[51] 543_SWATH.htrms.PG.Quantity.cal1,[52] 545_SWATH.htrms.PG.Quantity.cal1,[53] 546 SWATH.htrms.PG.Quantity.cal1,[54] 548_SWATH.htrms.PG.Quantity.cal1,[55] 549_SWATH.htrms.PG.Quantity.cal1,[56] 550 SWATH.htrms.PG.Quantity.cal1,[57] 561 SWATH.htrms.PG.Quantity.cal1,[58] 566 SWATH.htrms.PG.Quantity.cal1,[59] 568 SWATH.htrms.PG.Quantity.cal1,[60] 715 SWATH.htrms.PG.Quantity.cal1
+,,,,,,,,,,,
+rules:,,,,,,,,,,,
+# min_replicates per group,,,,,,,,,,,
+,min_replicates: ,3,,,,,,,,,
+,,,,,,,,,,,
+# target whitelist forces the inclusion of rows regardless of minimum replicates per group,,,,,,,,,,,
+# row number is offset from excel - for target whitelist number take row number in excel and substract 1,,,,,,,,,,,
+target_whitelist_row_num:,2,3,8,,,,,,,,
