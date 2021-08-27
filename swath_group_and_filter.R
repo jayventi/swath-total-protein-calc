@@ -28,9 +28,9 @@ source("csv_walk_config_tree.R")
 # system configuration  ######################################
 
 input_dir                 = "group_and_filter_input_files"
-output_dir                ="output_files"
+output_dir                = "output_files"
 yaml_config_file          = "group_and_filter.yaml"
-csv_config_file           = "group_and_fillter_config.csv"
+csv_config_file           = "group_and_filter_config.csv"
 output_file_prfx          = 'filtered_'
 output_file_excluded_prfx = 'excluded_'
 
