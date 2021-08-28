@@ -1,3 +1,36 @@
+# File:     walk_csv_config_tree
+# Project:  walks a csv configuration file file parser
+# Authors:  Jay Venti, 20mtns.com, jayventi@gmail.com
+# Date:     2021-08-26
+# License:  GNU Version 2
+
+# raw_csv_config main function and helper functions
+# walks a csv configuration file formatted as a text tree, and converts it to a R list data 
+# structure.
+# raw_csv_config takes one parameter raw_csv_config a csv file content given as an array, 
+# outputs one value the resulting list data structure.
+
+# Details 
+# This R script takes as input a csv spreadsheet as an array formatted in a manner similar to 
+# how json or yamal files are arranged and produces a R list data structure. The format allows 
+# for ignoring blank rows and comment lines indicated by a leading # character. The, R lists 
+# are interpretable as hierarchical trees indented structure of this format parallels yamal 
+# files except that the leaf level element are always interpreted as R lists, and the list 
+# elements must run sequentially after the key name one element for each column. The format 
+# follows the key value arrangement used in yamal and json, the first element is the key 
+# immediately followed by a ':' character, in the case of internal notes each node is indented 
+# one column to the right from its parent given one row above.
+
+# The intent of structuring lists running horizontally after the key name of leaf list, is 
+# that it is convenient when copying list elements from columns of a pre-existing spreadsheet. 
+# The motivating use case was that laboratory analytical equipment produces large spreadsheets 
+# where each sample analyzed forms a column in a spreadsheet,  it is convenient to build a 
+# configuration file as a spreadsheet itself since laboratory workers are familiar with this 
+# format and it is also convenient for them to copy large groups of columns names to be 
+# processed as a set into a configuration file in their pre-existing horizontal format, thus 
+# was born this laboratory worker friendly configuration file format.
+
+
 # cvs config helpers ## main > walk_csv_config_tree ###################
 
 # csv string handling and parsing functions
@@ -139,4 +172,5 @@ walk_csv_config_tree = function(raw_csv_config) {
   return(n)
 }
 
-#config = walk_csv_config_tree(raw_csv_config)
+# little testbed
+# config = walk_csv_config_tree(raw_csv_config)
