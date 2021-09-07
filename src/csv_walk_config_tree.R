@@ -1,40 +1,21 @@
-# File:     walk_csv_config_tree
-# Project:  walks a csv configuration file file parser
-# Authors:  Jay Venti, 20mtns.com, jayventi@gmail.com
-# Date:     2021-08-26
-# License:  GNU Version 2
+# File:     walk_csv_config_tree.R
 
-# raw_csv_config main function and helper functions
+# see github.com/jayventi/csv_config_tree for full description
 # walks a csv configuration file formatted as a text tree, and converts it to a R list data 
 # structure.
-# raw_csv_config takes one parameter raw_csv_config a csv file content given as an array, 
-# outputs one value the resulting list data structure.
+# raw_csv_config takes one parameter raw_csv_config a dataframe of a csv file, 
+# outputs a list representation of the csv config file.
 
-# Details 
-# This R script takes as input a csv spreadsheet as an array formatted in a manner similar to 
-# how json or yamal files are arranged and produces a R list data structure. The format allows 
-# for ignoring blank rows and comment lines indicated by a leading # character. The, R lists 
-# are interpretable as hierarchical trees indented structure of this format parallels yamal 
-# files except that the leaf level element are always interpreted as R lists, and the list 
-# elements must run sequentially after the key name one element for each column. The format 
-# follows the key value arrangement used in yamal and json, the first element is the key 
-# immediately followed by a ':' character, in the case of internal notes each node is indented 
-# one column to the right from its parent given one row above.
+# this script is maintained in its own repository for most recent version copy 
+# from github.com/jayventi/csv_config_tree  is a standalone script
 
-# The intent of structuring lists running horizontally after the key name of leaf list, is 
-# that it is convenient when copying list elements from columns of a pre-existing spreadsheet. 
-# The motivating use case was that laboratory analytical equipment produces large spreadsheets 
-# where each sample analyzed forms a column in a spreadsheet,  it is convenient to build a 
-# configuration file as a spreadsheet itself since laboratory workers are familiar with this 
-# format and it is also convenient for them to copy large groups of columns names to be 
-# processed as a set into a configuration file in their pre-existing horizontal format, thus 
-# was born this laboratory worker friendly configuration file format.
+# constance ## ################################################################
+comt_chr = '#' # comment character
+key_sufx = ':' #  key name suffix character
 
-
-# cvs config helpers ## main > walk_csv_config_tree ###################
+# cvs config helpers ## main funtion > walk_csv_config_tree ###################
 
 # csv string handling and parsing functions
-# TODO move all csv helper functions into a CSVWalkConfigTree()
 is_comment_str =  function(x, com_chr='#') {
   x_trim = str_trim(x, "left")
   result = (str_sub(x_trim,1,1) == com_chr)
@@ -95,7 +76,7 @@ get_list_from_row = function(row, key_inx) {
   key_nam = get_key_nam(row[key_inx])
   for(inx in (key_inx+1):length(row) ){
     if (! is_na_or_whitespace(row[inx])){
-      if (!is.na(as.numeric(row[inx]))){
+      if (!is.na(suppressWarnings(as.numeric(row[inx])))){
         v_out[inx-key_inx] = as.integer(row[inx])
       } else {
         v_out[inx-key_inx] = (row[inx])
@@ -151,7 +132,7 @@ walk_csv_config_tree = function(raw_csv_config) {
   key_inx = 1
   core_csv_list = delete_comment_or_blank(raw_csv_config)
   for (line_n in 1:nrow(core_csv_list)){
-  raw_line = core_csv_list[line_n,]
+    raw_line = core_csv_list[line_n,]
     last_key_inx = key_inx # track last, current
     key_inx = get_key_index(raw_line)
     line_list = get_list_from_row(raw_line, key_inx)
@@ -162,9 +143,9 @@ walk_csv_config_tree = function(raw_csv_config) {
         working = paste(working,'[["',key_nam,'"]]',sep = "") # setup new working
       }
     } else if (length(line_list[[1]]) == 0){ # go away from root
-        parent = working
-        working = paste(working,'[["',key_nam,'"]]',sep = "") # setup new working
-        m = set_n_parent(n, working, parent) # set parent = working
+      parent = working
+      working = paste(working,'[["',key_nam,'"]]',sep = "") # setup new working
+      m = set_n_parent(n, working, parent) # set parent = working
     }
     if (length(line_list[[1]]) > 0) { # is it a leaf node then process it
       n = set_n_leaf(n, working, key_nam, line_list) }
