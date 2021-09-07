@@ -23,9 +23,9 @@ if (!require("stringr")) install.packages("stringr")
 pacman::p_load(pacman, rio) 
 
 # import private source
-source("csv_walk_config_tree.R")
+source("src/csv_walk_config_tree.R")
 
-# system configuration  ######################################
+# system configuration  ###############################################
 
 input_dir                 = "group_and_filter_input_files"
 output_dir                = "output_files"
@@ -75,16 +75,32 @@ group_set_columns_cn <- length(config_dict$group_set_columns)
 # abort execution
 if (length(input_files) != 1){
   print("Only one file at a time or no file present at all")
-  stop_quietly}
+  stop_quietly()}
 # we are good to go only one file!
 
 # setup input data_filepath
 data_filepath <- paste(input_dir,"/", input_files, sep="")
-print(data_filepath)
+# print(data_filepath)
 # ###############################################################
 # IMPORTING cal1 df_swath WITH RIO ##############################
 cal1_swath_df <- import(data_filepath)
 #head(cal1_swath_df)
+
+# ###############################################################
+# Cheek that config_dict$group_set_columns columns exist  
+#  in cal1_swath_df
+cheek_ok = TRUE
+nams_cal1_swath = names(cal1_swath_df)
+for(set in 1:group_set_columns_cn){
+  group_set_columns_v = unlist(config_dict$group_set_columns[set])
+  for( col in group_set_columns_v){
+    if(! col %in% nams_cal1_swath){
+      print(paste('group_set_column', col, 'not in',input_files))
+      cheek_ok = FALSE
+    }
+  }
+}
+if(!cheek_ok) {cat('\n>>> cheek_ok =FALSE, stop\n'); stop_quietly()}
 
 # ###############################################################
 # step through and build vector of rows to be filter out ########
@@ -92,16 +108,16 @@ cal1_df_row_cn = nrow(cal1_swath_df)
 row_exclusion_v = c()
 row_exclusion_inx = 0
 for( row in 1:cal1_df_row_cn ) { # 4){ #  
-  # print(paste('row:',row))
+  #print(paste('row:',row))
   if( (!(row %in% config_dict$target_whitelist_row_num))){
     keep_row = TRUE
     for(set in 1:group_set_columns_cn){
       group_set_columns_v = unlist(config_dict$group_set_columns[set])
       not_na_data_cn = 0
-      # print(paste('group_set_columns_v:',group_set_columns_v))
+      #print(paste('group_set_columns_v:',group_set_columns_v))
       for( col in group_set_columns_v){
        if(! is.na(cal1_swath_df[row, col])){
-          # print(paste('col:',col, 'row:',row, 'cal1_swath_df[row, ]', cal1_swath_df[row, ]))
+          #print(paste('col:',col, 'row:',row, 'cal1_swath_df[row, ]', cal1_swath_df[row, ]))
           not_na_data_cn = not_na_data_cn+1}# ! is.na(cal1_swath_df[row, col])
       }
   
