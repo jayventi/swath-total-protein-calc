@@ -1,8 +1,8 @@
 # File:     walk_csv_config_tree.R
 
 # see github.com/jayventi/csv_config_tree for full description
-# walks a csv configuration file formatted as a text tree, and converts it to a R list data 
-# structure.
+# walk_csv_config_tree() walks a csv configuration file formatted as a text tree, and 
+# converts it to a R list data structure.
 # raw_csv_config takes one parameter raw_csv_config a dataframe of a csv file, 
 # outputs a list representation of the csv config file.
 
