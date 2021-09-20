@@ -95,7 +95,7 @@ for(set in 1:group_set_columns_cn){
   group_set_columns_v = unlist(config_dict$group_set_columns[set])
   for( col in group_set_columns_v){
     if(! col %in% nams_cal1_swath){
-      print(paste('group_set_column', col, 'not in',input_files))
+      #print(paste('group_set_column', col, 'not in',input_files))
       cheek_ok = FALSE
     }
   }
@@ -120,7 +120,6 @@ for( row in 1:cal1_df_row_cn ) { # 4){ #
           #print(paste('col:',col, 'row:',row, 'cal1_swath_df[row, ]', cal1_swath_df[row, ]))
           not_na_data_cn = not_na_data_cn+1}# ! is.na(cal1_swath_df[row, col])
       }
-  
       if( (not_na_data_cn < config_dict$rules$min_replicates) | ! keep_row) { 
         keep_row = FALSE
       }
@@ -171,19 +170,80 @@ export(cal1_excluded_df, output_file_excluded,)
 
 
 
-# AVGs ## #########################################################
+# ##  ############################################################
+# AVG for each set ## ############################################
 # use cal1_filtered_df as input
-# TODO turn in to fun use at 
-cal1_output_df <- cal1_swath_df[1:6]
-calc1_col_nam_sets =  vector(mode = "list", length = group_set_columns_cn)
+# TODO should we set this up as a separate .R file and 
+#  turn all necessary prerequisite code into functions and place of the library?
+cal2_output_df <- cal1_swath_df[1:6]
+
+# set up prerequisite elements
+
+# build calc1_col_nam_sets sets with 'new' cal1_filtered_df column names
+calc1_col_nam_sets = list()
 for(set in 1:group_set_columns_cn){
   set_name = names(config_dict$group_set_columns)[set]
   group_set_columns_v = unlist(config_dict$group_set_columns[set])
+  new_cil_nams = c()
+  i = 0
   for( col in group_set_columns_v){
     cal1_col_name = paste(set_name, '.', col, sep = '')
-    calc1_col_nam_sets[set] = cal1_col_name
+    i = i + 1
+    new_cil_nams[i] <- cal1_col_name
   }
-  calc1_col_nam_sets[set] = cal1_col_name
+  calc1_col_nam_sets[[set_name]] <- new_cil_nams
 }
 
-print(calc1_col_nam_sets)
+# calculate averages for each set
+cal2_df_row_cn = nrow(cal1_filtered_df)
+row_group_v = c()
+new_group_set_col_v = c()
+for(set_name in names(calc1_col_nam_sets)){
+  # print(paste('working on set:', set_name))
+  # cat('\n')
+  new_group_set_col_v = unlist(calc1_col_nam_sets[[set_name]])
+  #print(new_group_set_col_v)
+  # for all rows
+  for( row in 1:cal2_df_row_cn) { # cal2_df_row_cn
+    #print(paste('row', row))
+    row_group_v = cal1_filtered_df[row, new_group_set_col_v]
+    # print(row_group_v)
+    set_avg = mean(unlist(row_group_v), trim=0, na.rm = TRUE)
+    #print(paste( 'avg', set_avg))
+    cat('\n')
+    cal2_output_df[row, paste('avg.', set_name, sep='')] = set_avg
+  }
+}
+
+# calculate fold and log2 for each set, excluding first-set since it will always 
+#  equal one by definition
+# TODO maybe first-set should be included as a sanity check 
+#  fold = each-set/first-set
+#  log2 = log2(each-set)/log2(first-set)
+names = names(calc1_col_nam_sets)
+stand = paste('avg.', names[[1]], sep='')
+# print(stand)
+for(set_name in names[2:length(names)]){ # skip the first set will always equal 1
+  for( row in 1:cal2_df_row_cn ) { # cal2_df_row_cn
+    cal2_output_df[row, paste('fold.', set_name, sep='')] = 
+      cal2_output_df[row, paste('avg.', set_name, sep='')] / cal2_output_df[row, stand]
+    cal2_output_df[row, paste('log2.', set_name, sep='')] =
+      log2(cal2_output_df[row, paste('avg.', set_name, sep='')]) / 
+      log2(cal2_output_df[row, stand])
+  }
+}
+
+# for debugging check final output
+# names = names(cal2_output_df)
+# len = length(names)
+# print(cal2_output_df[3:7, 7:len])
+
+# setup cal2_output_df output file name
+output_log2_prfx          = 'log2_' # TODO move to top config section if kept in this file
+output_file_filtered = paste(output_dir, "/", output_log2_prfx , input_files, sep="")
+cat('target location of output file:',output_file_filtered, '\n\n')
+# export with RIO ################################################
+export(cal2_output_df, output_file_filtered,)
+
+
+
