@@ -168,3 +168,22 @@ cat('target location of output file:',output_file_filtered, '\n\n')
 # export with RIO ################################################
 export(cal1_filtered_df, output_file_filtered,)
 export(cal1_excluded_df, output_file_excluded,)
+
+
+
+# AVGs ## #########################################################
+# use cal1_filtered_df as input
+# TODO turn in to fun use at 
+cal1_output_df <- cal1_swath_df[1:6]
+calc1_col_nam_sets =  vector(mode = "list", length = group_set_columns_cn)
+for(set in 1:group_set_columns_cn){
+  set_name = names(config_dict$group_set_columns)[set]
+  group_set_columns_v = unlist(config_dict$group_set_columns[set])
+  for( col in group_set_columns_v){
+    cal1_col_name = paste(set_name, '.', col, sep = '')
+    calc1_col_nam_sets[set] = cal1_col_name
+  }
+  calc1_col_nam_sets[set] = cal1_col_name
+}
+
+print(calc1_col_nam_sets)
